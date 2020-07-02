@@ -7,8 +7,9 @@ public class SpecPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
+        final SpecPluginExtension ext = project.getExtensions().create("apiContractSpec", SpecPluginExtension.class);
         project
                 .task("generate-api-spec")
-                .doLast(task -> System.out.println("Hello Gradle!"));
+                .doLast(task -> System.out.println(ext.getApiSpec()));
     }
 }
