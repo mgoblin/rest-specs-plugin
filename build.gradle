@@ -1,0 +1,25 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group 'ru.ui.contract'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'ru.uip.contract.specs'
+            implementationClass = 'ru.uip.contract.SpecPlugin'
+        }
+    }
+}
+
+build.finalizedBy(publishToMavenLocal)
