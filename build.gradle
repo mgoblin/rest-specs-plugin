@@ -12,6 +12,7 @@ repositories {
 }
 
 dependencies {
+    implementation "io.swagger.parser.v3:swagger-parser:2.0.20"
 }
 
 gradlePlugin {
