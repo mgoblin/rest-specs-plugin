@@ -7,11 +7,15 @@ import ru.uip.openapi.OpenApiParser;
 
 public class SpecPlugin implements Plugin<Project> {
 
+    public final static String PLUGIN_ID = "ru.uip.contract.specs";
+    public final static String TASK_ID = "generate-api-spec";
+    public final static String EXTENSION_ID = "apiContractSpec";
+
     @Override
     public void apply(Project project) {
-        final SpecPluginExtension apiExt = project.getExtensions().create("apiContractSpec", SpecPluginExtension.class);
+        final SpecPluginExtension apiExt = project.getExtensions().create(EXTENSION_ID, SpecPluginExtension.class);
 
-        project.task("generate-api-spec").doLast(task -> {
+        project.task(TASK_ID).doLast(task -> {
             final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec(), project);
             openApiParser.parseOperationIds().forEach(System.out::println);
 
