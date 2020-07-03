@@ -1,14 +1,11 @@
-package ru.uip.contract;
+package ru.uip.openapi;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
-import io.swagger.v3.oas.models.PathItem;
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import org.gradle.api.Project;
-import org.gradle.api.Task;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 

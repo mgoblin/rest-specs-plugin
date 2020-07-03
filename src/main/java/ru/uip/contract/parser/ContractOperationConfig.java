@@ -1,4 +1,4 @@
-package ru.uip.contract;
+package ru.uip.contract.parser;
 
 import java.io.File;
 import java.util.Set;

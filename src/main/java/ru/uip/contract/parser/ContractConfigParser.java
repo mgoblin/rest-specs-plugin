@@ -1,8 +1,11 @@
-package ru.uip.contract;
+package ru.uip.contract.parser;
 
 import org.gradle.api.file.ConfigurableFileCollection;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,6 +13,7 @@ import java.util.stream.Collectors;
 public class ContractConfigParser {
 
     private final Set<ContractOperationConfig> contractOperationConfigs;
+    private final ContractParser contractParser = new ContractParser();
 
     public ContractConfigParser(Map<String, ConfigurableFileCollection> config) {
         this.contractOperationConfigs = config.entrySet().stream()
@@ -27,6 +31,11 @@ public class ContractConfigParser {
     }
 
     public void parseContractFile(File contractFile) {
-        System.out.println(contractFile.getName());
+        try {
+            final String fileContent = Files.readString(contractFile.toPath(), StandardCharsets.UTF_8);
+            contractParser.parse(fileContent);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 }

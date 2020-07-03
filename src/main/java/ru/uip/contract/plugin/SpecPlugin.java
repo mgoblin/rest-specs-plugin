@@ -1,7 +1,9 @@
-package ru.uip.contract;
+package ru.uip.contract.plugin;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import ru.uip.contract.parser.ContractConfigParser;
+import ru.uip.openapi.OpenApiParser;
 
 public class SpecPlugin implements Plugin<Project> {
 

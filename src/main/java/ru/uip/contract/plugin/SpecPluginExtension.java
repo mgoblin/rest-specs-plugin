@@ -1,4 +1,4 @@
-package ru.uip.contract;
+package ru.uip.contract.plugin;
 
 import lombok.*;
 import org.gradle.api.file.ConfigurableFileCollection;
