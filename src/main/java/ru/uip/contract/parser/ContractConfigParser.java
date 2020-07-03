@@ -1,7 +1,5 @@
 package ru.uip.contract.parser;
 
-import org.gradle.api.file.ConfigurableFileCollection;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,9 +13,9 @@ public class ContractConfigParser {
     private final Set<ContractOperationConfig> contractOperationConfigs;
     private final ContractParser contractParser = new ContractParser();
 
-    public ContractConfigParser(Map<String, ConfigurableFileCollection> config) {
+    public ContractConfigParser(Map<String, Set<File>> config) {
         this.contractOperationConfigs = config.entrySet().stream()
-                .map(v -> new ContractOperationConfig(v.getKey(), v.getValue().getFiles()))
+                .map(v -> new ContractOperationConfig(v.getKey(), v.getValue()))
                 .collect(Collectors.toSet());
     }
 
