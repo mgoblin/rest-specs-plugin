@@ -14,5 +14,5 @@ import java.util.Map;
 @NoArgsConstructor
 public class SpecPluginExtension {
     private String apiSpec = "src/main/api/api.yaml";
-    private Map<String, List<String>> operationContracts = new HashMap<>();
+    private Map<String, ConfigurableFileCollection> operationContracts = new HashMap<>();
 }
