@@ -19,7 +19,7 @@ gradlePlugin {
     plugins {
         simplePlugin {
             id = 'ru.uip.contract.specs'
-            implementationClass = 'ru.uip.contract.SpecPlugin'
+            implementationClass = 'ru.uip.contract.plugin.SpecPlugin'
         }
     }
 }
