@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -34,9 +34,8 @@ public class ContractsParserTest {
         assertThat(parser, notNullValue());
     }
 
-    @SneakyThrows
     @Test
-    public void testParseFile() {
+    public void testParseFile() throws IOException {
         final ContractContentParser contractContentParser = mock(ContractContentParser.class);
         final ContractsParser parser = new ContractsParser(contracts, contractContentParser);
 
@@ -51,9 +50,8 @@ public class ContractsParserTest {
         verify(contractContentParser, times(1)).parse(anyString());
     }
 
-    @SneakyThrows
     @Test
-    public void testParseNonExistedFile() {
+    public void testParseNonExistedFile() throws IOException {
         final ContractContentParser contractContentParser = mock(ContractContentParser.class);
         final ContractsParser parser = new ContractsParser(contracts, contractContentParser);
 
@@ -63,6 +61,19 @@ public class ContractsParserTest {
                 () -> parser.parseContractFile(getAccountContract));
 
         verify(contractContentParser, times(0)).parse(anyString());
+    }
+
+    @Test
+    public void testParse() throws IOException {
+        final ContractContentParser contractContentParser = mock(ContractContentParser.class);
+        final ContractsParser parser = new ContractsParser(contracts, contractContentParser);
+
+        final ContractDescription item = new ContractDescription("accounts", "Get all accounts");
+        Set<ContractDescription> expected = new HashSet<>(Arrays.asList(item));
+        when(contractContentParser.parse(anyString())).thenReturn(expected);
+
+        final Map<String, Set<ContractDescription>> spec = parser.parse();
+        assertThat(spec, hasEntry("GetAccounts", expected));
     }
 
 }
