@@ -1,4 +1,4 @@
-package ru.uip.contract;
+package ru.uip.contract.openapi;
 
 import org.gradle.api.Project;
 import org.gradle.testfixtures.ProjectBuilder;
