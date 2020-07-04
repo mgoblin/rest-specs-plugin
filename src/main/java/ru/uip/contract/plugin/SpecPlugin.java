@@ -44,6 +44,9 @@ public class SpecPlugin implements Plugin<Project> {
     public void parseSpec(OpenApiParser openApiParser, ContractsParser contractsParser) {
         final List<String> operationIds = openApiParser.parseOperationIds();
         operationIds.forEach(System.out::println);
-        contractsParser.parse();
+        contractsParser.parse().forEach((operation, contracts) -> {
+            final String message = String.format("operation %s has contracts %s", operation, contracts);
+            System.out.println(message);
+        });
     }
 }
