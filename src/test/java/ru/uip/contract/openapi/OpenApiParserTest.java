@@ -1,34 +1,18 @@
 package ru.uip.contract.openapi;
 
-import org.gradle.api.Project;
-import org.gradle.testfixtures.ProjectBuilder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import ru.uip.openapi.OpenApiParser;
 
-import java.io.File;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.notNullValue;
-import static ru.uip.contract.plugin.SpecPlugin.PLUGIN_ID;
 
 @Tag("unit")
 public class OpenApiParserTest {
-
-    private Project project;
-
-    @BeforeEach
-    public void setUp() {
-        this.project = ProjectBuilder.builder()
-                .withProjectDir(new File("./"))
-                .withGradleUserHomeDir(new File(System.getProperty("java.io.tmpdir")))
-                .build();
-        this.project.getPluginManager().apply(PLUGIN_ID);
-    }
 
     @Test
     public void testHappyPath() {
