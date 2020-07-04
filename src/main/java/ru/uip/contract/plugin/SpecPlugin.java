@@ -22,11 +22,11 @@ public class SpecPlugin implements Plugin<Project> {
         final SpecPluginExtension apiExt = project.getExtensions().create(EXTENSION_ID, SpecPluginExtension.class);
 
         project.task(TASK_ID).doLast(task -> {
-            final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec(), project);
+            final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec());
             openApiParser.parseOperationIds().forEach(System.out::println);
 
             Map<String, Set<File>> contractFiles = new HashMap<>();
-            for(Map.Entry<String, ConfigurableFileCollection> entry :apiExt.getOperationContracts().entrySet()) {
+            for(Map.Entry<String, ConfigurableFileCollection> entry: apiExt.getOperationContracts().entrySet()) {
                 final ConfigurableFileCollection fileCollection = entry.getValue();
                 final Set<File> files = fileCollection.getFiles();
                 contractFiles.put(entry.getKey(), files);
@@ -37,5 +37,4 @@ public class SpecPlugin implements Plugin<Project> {
         });
 
     }
-
 }

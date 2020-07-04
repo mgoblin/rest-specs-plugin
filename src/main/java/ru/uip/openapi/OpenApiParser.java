@@ -13,8 +13,8 @@ public class OpenApiParser {
 
     private final OpenAPI openAPI;
 
-    public OpenApiParser(String fileName, Project project) {
-        final File file = project.file(fileName);
+    public OpenApiParser(String fileName) {
+        final File file = new File(fileName);
         if (!file.exists() || !file.canRead()) {
             throw new IllegalArgumentException("OpenApi spec file " + fileName + " not found");
         }

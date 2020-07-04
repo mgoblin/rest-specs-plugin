@@ -30,7 +30,7 @@ public class OpenApiParserTest {
 
     @Test
     public void testHappyPath() {
-        OpenApiParser parser = new OpenApiParser("./src/test/api/api.yaml", project);
+        OpenApiParser parser = new OpenApiParser("./src/test/api/api.yaml");
         assertThat(parser, notNullValue());
 
         final List<String> operations = parser.parseOperationIds();
@@ -46,7 +46,7 @@ public class OpenApiParserTest {
     public void testNonExistingFile() {
         Assertions.assertThrows(
                 IllegalArgumentException.class,
-                () -> new OpenApiParser("./src/test/api/no.file", project)
+                () -> new OpenApiParser("./src/test/api/no.file")
         );
     }
 }
