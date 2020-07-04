@@ -12,12 +12,20 @@ import java.util.stream.Collectors;
 public class ContractConfigParser {
 
     private final Set<ContractOperationConfig> contractOperationConfigs;
-    private final ContractParser contractParser = new ContractParser();
+
+
+
+    private final ContractParser contractParser;
 
     public ContractConfigParser(Map<String, Set<File>> config) {
+        this(config, new ContractParser());
+    }
+
+    public ContractConfigParser(Map<String, Set<File>> config, ContractParser contractParser) {
         this.contractOperationConfigs = config.entrySet().stream()
                 .map(v -> new ContractOperationConfig(v.getKey(), v.getValue()))
                 .collect(Collectors.toSet());
+        this.contractParser = contractParser;
     }
 
     public void parse() {
