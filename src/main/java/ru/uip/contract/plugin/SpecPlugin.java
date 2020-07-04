@@ -23,18 +23,25 @@ public class SpecPlugin implements Plugin<Project> {
 
         project.task(TASK_ID).doLast(task -> {
             final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec());
-            openApiParser.parseOperationIds().forEach(System.out::println);
+            final ContractConfigParser contractConfigParser = new ContractConfigParser(fromConfig(apiExt));
 
-            Map<String, Set<File>> contractFiles = new HashMap<>();
-            for(Map.Entry<String, ConfigurableFileCollection> entry: apiExt.getOperationContracts().entrySet()) {
-                final ConfigurableFileCollection fileCollection = entry.getValue();
-                final Set<File> files = fileCollection.getFiles();
-                contractFiles.put(entry.getKey(), files);
-            }
-
-            ContractConfigParser contractConfigParser = new ContractConfigParser(contractFiles);
-            contractConfigParser.parse();
+            parseSpec(openApiParser, contractConfigParser);
         });
 
+    }
+
+    public Map<String, Set<File>> fromConfig(SpecPluginExtension apiExt) {
+        Map<String, Set<File>> contractFiles = new HashMap<>();
+        for(Map.Entry<String, ConfigurableFileCollection> entry: apiExt.getOperationContracts().entrySet()) {
+            final ConfigurableFileCollection fileCollection = entry.getValue();
+            final Set<File> files = fileCollection.getFiles();
+            contractFiles.put(entry.getKey(), files);
+        }
+        return contractFiles;
+    }
+
+    public void parseSpec(OpenApiParser openApiParser, ContractConfigParser contractConfigParser) {
+        openApiParser.parseOperationIds().forEach(System.out::println);
+        contractConfigParser.parse();
     }
 }
