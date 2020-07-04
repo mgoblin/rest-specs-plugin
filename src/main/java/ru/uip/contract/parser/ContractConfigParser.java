@@ -12,20 +12,17 @@ import java.util.stream.Collectors;
 public class ContractConfigParser {
 
     private final Set<ContractOperationConfig> contractOperationConfigs;
-
-
-
-    private final ContractParser contractParser;
+    private final ContractContentParser contractContentParser;
 
     public ContractConfigParser(Map<String, Set<File>> config) {
-        this(config, new ContractParser());
+        this(config, new ContractContentParser());
     }
 
-    public ContractConfigParser(Map<String, Set<File>> config, ContractParser contractParser) {
+    public ContractConfigParser(Map<String, Set<File>> config, ContractContentParser contractContentParser) {
         this.contractOperationConfigs = config.entrySet().stream()
                 .map(v -> new ContractOperationConfig(v.getKey(), v.getValue()))
                 .collect(Collectors.toSet());
-        this.contractParser = contractParser;
+        this.contractContentParser = contractContentParser;
     }
 
     public void parse() {
@@ -37,10 +34,10 @@ public class ContractConfigParser {
         }
     }
 
-    public List<ContractDescription> parseContractFile(File contractFile) {
+    public Set<ContractDescription> parseContractFile(File contractFile) {
         try {
             final String fileContent = Files.readString(contractFile.toPath(), StandardCharsets.UTF_8);
-            return contractParser.parse(fileContent);
+            return contractContentParser.parse(fileContent);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }

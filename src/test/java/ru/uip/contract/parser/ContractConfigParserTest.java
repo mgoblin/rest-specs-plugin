@@ -37,32 +37,32 @@ public class ContractConfigParserTest {
     @SneakyThrows
     @Test
     public void testParseFile() {
-        final ContractParser contractParser = mock(ContractParser.class);
-        final ContractConfigParser parser = new ContractConfigParser(contracts, contractParser);
+        final ContractContentParser contractContentParser = mock(ContractContentParser.class);
+        final ContractConfigParser parser = new ContractConfigParser(contracts, contractContentParser);
 
         final ContractDescription item = new ContractDescription("accounts", "Get all accounts");
-        List<ContractDescription> expected = Arrays.asList(item);
-        when(contractParser.parse(anyString())).thenReturn(expected);
+        Set<ContractDescription> expected = new HashSet<>(Arrays.asList(item));
+        when(contractContentParser.parse(anyString())).thenReturn(expected);
 
         File getAccountContract = new File("./src/test/contracts/getAccounts.yml");
-        final List<ContractDescription> contractDescriptions = parser.parseContractFile(getAccountContract);
+        final Set<ContractDescription> contractDescriptions = parser.parseContractFile(getAccountContract);
         assertThat(contractDescriptions, containsInAnyOrder(item));
 
-        verify(contractParser, times(1)).parse(anyString());
+        verify(contractContentParser, times(1)).parse(anyString());
     }
 
     @SneakyThrows
     @Test
     public void testParseNonExistedFile() {
-        final ContractParser contractParser = mock(ContractParser.class);
-        final ContractConfigParser parser = new ContractConfigParser(contracts, contractParser);
+        final ContractContentParser contractContentParser = mock(ContractContentParser.class);
+        final ContractConfigParser parser = new ContractConfigParser(contracts, contractContentParser);
 
         File getAccountContract = new File("./src/test/contracts/nonExists.yml");
         assertThrows(
                 IllegalArgumentException.class,
                 () -> parser.parseContractFile(getAccountContract));
 
-        verify(contractParser, times(0)).parse(anyString());
+        verify(contractContentParser, times(0)).parse(anyString());
     }
 
 }
