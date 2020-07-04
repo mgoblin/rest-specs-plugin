@@ -7,7 +7,7 @@ import org.gradle.testfixtures.ProjectBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import ru.uip.contract.parser.ContractConfigParser;
+import ru.uip.contract.parser.ContractsParser;
 import ru.uip.contract.plugin.SpecPlugin;
 import ru.uip.contract.plugin.SpecPluginExtension;
 import ru.uip.openapi.OpenApiParser;
@@ -77,11 +77,11 @@ public class PluginTest {
     public void testParseSpec() {
         final SpecPlugin specPlugin = new SpecPlugin();
         final OpenApiParser openApiParser = mock(OpenApiParser.class);
-        final ContractConfigParser contractConfigParser = mock(ContractConfigParser.class);
+        final ContractsParser contractsParser = mock(ContractsParser.class);
 
-        specPlugin.parseSpec(openApiParser, contractConfigParser);
+        specPlugin.parseSpec(openApiParser, contractsParser);
 
         verify(openApiParser, times(1)).parseOperationIds();
-        verify(contractConfigParser, times(1)).parse();
+        verify(contractsParser, times(1)).parse();
     }
 }

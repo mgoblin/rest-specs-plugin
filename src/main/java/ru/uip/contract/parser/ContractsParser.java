@@ -4,21 +4,20 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class ContractConfigParser {
+public class ContractsParser {
 
     private final Set<ContractOperationConfig> contractOperationConfigs;
     private final ContractContentParser contractContentParser;
 
-    public ContractConfigParser(Map<String, Set<File>> config) {
+    public ContractsParser(Map<String, Set<File>> config) {
         this(config, new ContractContentParser());
     }
 
-    public ContractConfigParser(Map<String, Set<File>> config, ContractContentParser contractContentParser) {
+    public ContractsParser(Map<String, Set<File>> config, ContractContentParser contractContentParser) {
         this.contractOperationConfigs = config.entrySet().stream()
                 .map(v -> new ContractOperationConfig(v.getKey(), v.getValue()))
                 .collect(Collectors.toSet());

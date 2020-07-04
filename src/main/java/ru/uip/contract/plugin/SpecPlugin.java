@@ -3,7 +3,7 @@ package ru.uip.contract.plugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.file.ConfigurableFileCollection;
-import ru.uip.contract.parser.ContractConfigParser;
+import ru.uip.contract.parser.ContractsParser;
 import ru.uip.openapi.OpenApiParser;
 
 import java.io.File;
@@ -24,9 +24,9 @@ public class SpecPlugin implements Plugin<Project> {
 
         project.task(TASK_ID).doLast(task -> {
             final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec());
-            final ContractConfigParser contractConfigParser = new ContractConfigParser(fromConfig(apiExt));
+            final ContractsParser contractsParser = new ContractsParser(fromConfig(apiExt));
 
-            parseSpec(openApiParser, contractConfigParser);
+            parseSpec(openApiParser, contractsParser);
         });
 
     }
@@ -41,9 +41,9 @@ public class SpecPlugin implements Plugin<Project> {
         return contractFiles;
     }
 
-    public void parseSpec(OpenApiParser openApiParser, ContractConfigParser contractConfigParser) {
+    public void parseSpec(OpenApiParser openApiParser, ContractsParser contractsParser) {
         final List<String> operationIds = openApiParser.parseOperationIds();
         operationIds.forEach(System.out::println);
-        contractConfigParser.parse();
+        contractsParser.parse();
     }
 }

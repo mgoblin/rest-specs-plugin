@@ -16,7 +16,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @Tag("unit")
-public class ContractConfigParserTest {
+public class ContractsParserTest {
 
     private Map<String, Set<File>> contracts = new HashMap<>();
 
@@ -30,7 +30,7 @@ public class ContractConfigParserTest {
 
     @Test
     public void testConstruct() {
-        final ContractConfigParser parser = new ContractConfigParser(contracts);
+        final ContractsParser parser = new ContractsParser(contracts);
         assertThat(parser, notNullValue());
     }
 
@@ -38,7 +38,7 @@ public class ContractConfigParserTest {
     @Test
     public void testParseFile() {
         final ContractContentParser contractContentParser = mock(ContractContentParser.class);
-        final ContractConfigParser parser = new ContractConfigParser(contracts, contractContentParser);
+        final ContractsParser parser = new ContractsParser(contracts, contractContentParser);
 
         final ContractDescription item = new ContractDescription("accounts", "Get all accounts");
         Set<ContractDescription> expected = new HashSet<>(Arrays.asList(item));
@@ -55,7 +55,7 @@ public class ContractConfigParserTest {
     @Test
     public void testParseNonExistedFile() {
         final ContractContentParser contractContentParser = mock(ContractContentParser.class);
-        final ContractConfigParser parser = new ContractConfigParser(contracts, contractContentParser);
+        final ContractsParser parser = new ContractsParser(contracts, contractContentParser);
 
         File getAccountContract = new File("./src/test/contracts/nonExists.yml");
         assertThrows(
