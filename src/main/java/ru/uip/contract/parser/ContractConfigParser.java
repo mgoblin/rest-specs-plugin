@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,10 +29,10 @@ public class ContractConfigParser {
         }
     }
 
-    public void parseContractFile(File contractFile) {
+    public List<ContractDescription> parseContractFile(File contractFile) {
         try {
             final String fileContent = Files.readString(contractFile.toPath(), StandardCharsets.UTF_8);
-            contractParser.parse(fileContent);
+            return contractParser.parse(fileContent);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }

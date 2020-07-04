@@ -11,18 +11,15 @@ import java.util.List;
 
 public class ContractParser {
 
-    public void parse(String fileContent) throws IOException {
+    public List<ContractDescription> parse(String fileContent) throws IOException {
         YAMLFactory yaml = new YAMLFactory();
         ObjectMapper mapper = new ObjectMapper().configure(
                 DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
                 false);
 
         YAMLParser yamlParser = yaml.createParser(fileContent);
-        final List<ContractDescription> docs = mapper
+        return mapper
                 .readValues(yamlParser, new TypeReference<ContractDescription>() {})
                 .readAll();
-        for(ContractDescription description: docs) {
-            System.out.println(description);
-        }
     }
 }
