@@ -8,6 +8,7 @@ import ru.uip.openapi.OpenApiParser;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,7 +42,8 @@ public class SpecPlugin implements Plugin<Project> {
     }
 
     public void parseSpec(OpenApiParser openApiParser, ContractConfigParser contractConfigParser) {
-        openApiParser.parseOperationIds().forEach(System.out::println);
+        final List<String> operationIds = openApiParser.parseOperationIds();
+        operationIds.forEach(System.out::println);
         contractConfigParser.parse();
     }
 }

@@ -4,6 +4,7 @@ import org.gradle.api.Project;
 import org.gradle.testfixtures.ProjectBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import ru.uip.openapi.OpenApiParser;
 
@@ -15,6 +16,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.notNullValue;
 import static ru.uip.contract.plugin.SpecPlugin.PLUGIN_ID;
 
+@Tag("unit")
 public class OpenApiParserTest {
 
     private Project project;
