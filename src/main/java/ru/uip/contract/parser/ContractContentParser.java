@@ -7,22 +7,20 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLParser;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ContractParser {
+public class ContractContentParser {
 
-    public void parse(String fileContent) throws IOException {
+    public Set<ContractDescription> parse(String fileContent) throws IOException {
         YAMLFactory yaml = new YAMLFactory();
         ObjectMapper mapper = new ObjectMapper().configure(
                 DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
                 false);
 
         YAMLParser yamlParser = yaml.createParser(fileContent);
-        final List<ContractDescription> docs = mapper
+        return new HashSet<>(mapper
                 .readValues(yamlParser, new TypeReference<ContractDescription>() {})
-                .readAll();
-        for(ContractDescription description: docs) {
-            System.out.println(description);
-        }
+                .readAll());
     }
 }

@@ -9,8 +9,6 @@ import java.util.Map;
 
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
 @NoArgsConstructor
 public class SpecPluginExtension {
     private String apiSpec = "src/main/api/api.yaml";
