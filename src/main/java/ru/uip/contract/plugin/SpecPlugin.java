@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class SpecPlugin implements Plugin<Project> {
@@ -39,7 +40,7 @@ public class SpecPlugin implements Plugin<Project> {
 
     public Map<String, Set<File>> fromConfig(SpecPluginExtension apiExt) {
         Map<String, Set<File>> contractFiles = new HashMap<>();
-        for(Map.Entry<String, ConfigurableFileCollection> entry: apiExt.getOperationContracts().entrySet()) {
+        for (Map.Entry<String, ConfigurableFileCollection> entry : apiExt.getOperationContracts().entrySet()) {
             final ConfigurableFileCollection fileCollection = entry.getValue();
             final Set<File> files = fileCollection.getFiles();
             contractFiles.put(entry.getKey(), files);
@@ -52,21 +53,37 @@ public class SpecPlugin implements Plugin<Project> {
         final Map<String, Set<ContractDescription>> spec = contractsParser.parse();
 
         // Validate all operation covered by contract docs
-        // TODO Unit tests
-        operationIds.forEach(operationId -> {
-            if (!spec.containsKey(operationId)) {
-                logger.warn(String.format("Warn: Operation %s does not have contract docs", operationId));
-            }
-        });
+        findOperationsWithoutContracts(operationIds, spec);
 
         // Remove unknown spec docs
-        // TODO Unit tests
-        for(String specOperationId: spec.keySet()) {
-            if (!operationIds.contains(specOperationId)) {
-                spec.remove(specOperationId);
-                logger.warn(String.format("Warn: Spec docs for %s does not match OpenAPI spc", specOperationId));
-            }
-        }
+        final Set<String> contractsWithUnknownOperations = findContractsWithUnknownOperations(operationIds, spec);
+        contractsWithUnknownOperations.forEach(spec::remove);
+
         return spec;
     }
+
+    public Set<String> findOperationsWithoutContracts(
+            List<String> operationsId, Map<String,
+            Set<ContractDescription>> specs) {
+        final Set<String> specOperations = specs.keySet();
+        final Set<String> undocumentedOperations = operationsId.stream()
+                .filter(id -> !specOperations.contains(id))
+                .collect(Collectors.toSet());
+        undocumentedOperations.forEach(operationId ->
+                logger.warn(String.format("Warn: Operation %s does not have contract docs", operationId)));
+        return undocumentedOperations;
+    }
+
+    public Set<String> findContractsWithUnknownOperations(
+            List<String> operationsId, Map<String,
+            Set<ContractDescription>> specs) {
+        final Set<String> specOperations = specs.keySet();
+        final Set<String> contractsWithUnknownOperations = specOperations.stream()
+                .filter(specOpId -> !operationsId.contains(specOpId))
+                .collect(Collectors.toSet());
+        contractsWithUnknownOperations.forEach(specOperationId ->
+                logger.warn(String.format("Warn: Spec docs for %s does not match OpenAPI spc", specOperationId)));
+        return contractsWithUnknownOperations;
+    }
+
 }

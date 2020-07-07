@@ -7,16 +7,14 @@ import org.gradle.testfixtures.ProjectBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import ru.uip.contract.parser.ContractDescription;
 import ru.uip.contract.parser.ContractsParser;
 import ru.uip.contract.plugin.SpecPlugin;
 import ru.uip.contract.plugin.SpecPluginExtension;
 import ru.uip.openapi.OpenApiParser;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -83,5 +81,31 @@ public class PluginTest {
 
         verify(openApiParser, times(1)).parseOperationIds();
         verify(contractsParser, times(1)).parse();
+    }
+
+    @Test
+    public void testFindOperationsWithoutContracts() {
+        final SpecPlugin specPlugin = new SpecPlugin();
+
+        List<String> operations = Arrays.asList("GetAccounts", "UpdateAccounts");
+        Map<String, Set<ContractDescription>> specs = new HashMap<>();
+        final Set<String> uncoveredOperation = specPlugin.findOperationsWithoutContracts(operations, specs);
+        assertThat(uncoveredOperation, containsInAnyOrder("GetAccounts", "UpdateAccounts"));
+    }
+
+    @Test
+    public void testFindContractsWithUnknownOperations() {
+        final SpecPlugin specPlugin = new SpecPlugin();
+
+        List<String> operations = Arrays.asList("GetAccounts", "UpdateAccounts");
+        Map<String, Set<ContractDescription>> specs = new HashMap<>();
+        ContractDescription contractDescription = new ContractDescription("Unknown", "Unknown");
+        Set<ContractDescription> contractDescriptionSet = new HashSet<>();
+        contractDescriptionSet.add(contractDescription);
+        specs.put("Unknown", contractDescriptionSet);
+
+        final Set<String> unknownOps = specPlugin.findContractsWithUnknownOperations(operations, specs);
+        assertThat(unknownOps, containsInAnyOrder("Unknown"));
+
     }
 }
