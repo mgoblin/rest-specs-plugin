@@ -14,6 +14,6 @@ public class AsciidocSpecGeneratorTest {
     @Test
     public void testGenerateSpec() {
         final String spec = generator.generateSpec();
-        assertThat(spec, equalTo("<h2>Its name</h2>\n<p>Its desc</p>"));
+        assertThat(spec, equalTo("<h2>Its name</h2>\r\n<p>Its desc</p>"));
     }
 }
