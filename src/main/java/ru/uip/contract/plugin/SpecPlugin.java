@@ -52,11 +52,21 @@ public class SpecPlugin implements Plugin<Project> {
         final Map<String, Set<ContractDescription>> spec = contractsParser.parse();
 
         // Validate all operation covered by contract docs
+        // TODO Unit tests
         operationIds.forEach(operationId -> {
             if (!spec.containsKey(operationId)) {
                 logger.warn(String.format("Warn: Operation %s does not have contract docs", operationId));
             }
         });
+
+        // Remove unknown spec docs
+        // TODO Unit tests
+        for(String specOperationId: spec.keySet()) {
+            if (!operationIds.contains(specOperationId)) {
+                spec.remove(specOperationId);
+                logger.warn(String.format("Warn: Spec docs for %s does not match OpenAPI spc", specOperationId));
+            }
+        }
         return spec;
     }
 }
