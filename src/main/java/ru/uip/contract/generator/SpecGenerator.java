@@ -6,6 +6,8 @@ import com.github.mustachejava.MustacheFactory;
 import ru.uip.contract.parser.ContractDescription;
 
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,10 +22,24 @@ public class SpecGenerator {
     }
 
 
-    public String generateSpecs(Map<String, Set<ContractDescription>> operationContracts) {
+    public Map<String, Set<String>> generateSpecs(Map<String, Set<ContractDescription>> operationContracts) {
 
-        ContractDescription description = new ContractDescription("Its name", "Its desc");
+        Map<String, Set<String>> operationDocs = new HashMap<>();
+        for(Map.Entry<String, Set<ContractDescription>> operationContract: operationContracts.entrySet()) {
+            final Set<ContractDescription> descriptions = operationContract.getValue();
+            final String operationId = operationContract.getKey();
 
+            for(ContractDescription description: descriptions) {
+                final String contractDescription = generateContractDescription(description);
+                final Set<String> operationDescriptions = operationDocs.getOrDefault(operationId, new HashSet<>());
+                operationDescriptions.add(contractDescription);
+                operationDocs.put(operationId, operationDescriptions);
+            }
+        }
+        return operationDocs;
+    }
+
+    public String generateContractDescription(ContractDescription description) {
         StringWriter writer = new StringWriter();
         m.execute(writer, description);
         return writer.toString();
