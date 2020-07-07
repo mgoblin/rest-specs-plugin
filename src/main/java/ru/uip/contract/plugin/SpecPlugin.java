@@ -40,8 +40,8 @@ public class SpecPlugin implements Plugin<Project> {
             final SpecWriter specWriter = new SpecWriter(apiExt.getOutputDir());
 
             final Map<String, Set<ContractDescription>> operationContracts = parseSpec(openApiParser, contractsParser);
-            System.out.println(specGenerator.generateSpecs(operationContracts));
-            specWriter.write();
+            final Map<String, String> contractSpecs = specGenerator.generateSpecs(operationContracts);
+            specWriter.write(contractSpecs);
         });
 
     }
