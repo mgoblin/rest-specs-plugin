@@ -33,7 +33,7 @@ public class SpecPlugin implements Plugin<Project> {
         project.task(TASK_ID).doLast(task -> {
             final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec());
             final ContractsParser contractsParser = new ContractsParser(fromConfig(apiExt));
-            final SpecGenerator specGenerator = new SpecGenerator();
+            final SpecGenerator specGenerator = new SpecGenerator("spec.mustache");
 
             final Map<String, Set<ContractDescription>> operationContracts = parseSpec(openApiParser, contractsParser);
             System.out.println(specGenerator.generateSpecs(operationContracts));

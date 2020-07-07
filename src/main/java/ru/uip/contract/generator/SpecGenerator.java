@@ -11,11 +11,16 @@ import java.util.Set;
 
 public class SpecGenerator {
 
-    private MustacheFactory mf = new DefaultMustacheFactory();
+    private final MustacheFactory mf;// = new DefaultMustacheFactory();
+    private final Mustache m;
+
+    public SpecGenerator(String templateName) {
+        this.mf = new DefaultMustacheFactory();
+        this.m = mf.compile(templateName);
+    }
+
 
     public String generateSpecs(Map<String, Set<ContractDescription>> operationContracts) {
-
-        Mustache m = mf.compile("spec.mustache");
 
         ContractDescription description = new ContractDescription("Its name", "Its desc");
 

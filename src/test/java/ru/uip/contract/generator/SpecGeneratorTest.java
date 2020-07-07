@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 @Tag("unit")
 public class SpecGeneratorTest {
 
-    private SpecGenerator generator = new SpecGenerator();
+    private SpecGenerator generator = new SpecGenerator("spec.mustache");
 
     @Test
     public void testGenerateSpec() {
