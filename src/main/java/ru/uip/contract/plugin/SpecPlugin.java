@@ -5,6 +5,7 @@ import org.gradle.api.Project;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
+import ru.uip.contract.generator.SpecGenerator;
 import ru.uip.contract.parser.ContractDescription;
 import ru.uip.contract.parser.ContractsParser;
 import ru.uip.openapi.OpenApiParser;
@@ -32,8 +33,11 @@ public class SpecPlugin implements Plugin<Project> {
         project.task(TASK_ID).doLast(task -> {
             final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec());
             final ContractsParser contractsParser = new ContractsParser(fromConfig(apiExt));
+            final SpecGenerator specGenerator = new SpecGenerator();
 
-            final Map<String, Set<ContractDescription>> spec = parseSpec(openApiParser, contractsParser);
+            final Map<String, Set<ContractDescription>> operationContracts = parseSpec(openApiParser, contractsParser);
+            System.out.println(specGenerator.generateSpecs(operationContracts));
+
         });
 
     }

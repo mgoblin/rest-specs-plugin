@@ -6,13 +6,16 @@ import com.github.mustachejava.MustacheFactory;
 import ru.uip.contract.parser.ContractDescription;
 
 import java.io.StringWriter;
+import java.util.Map;
+import java.util.Set;
 
-public class AsciidocSpecGenerator {
+public class SpecGenerator {
 
     private MustacheFactory mf = new DefaultMustacheFactory();
 
-    public String generateSpec() {
-        Mustache m = mf.compile("index.mustache");
+    public String generateSpecs(Map<String, Set<ContractDescription>> operationContracts) {
+
+        Mustache m = mf.compile("spec.mustache");
 
         ContractDescription description = new ContractDescription("Its name", "Its desc");
 
@@ -20,4 +23,5 @@ public class AsciidocSpecGenerator {
         m.execute(writer, description);
         return writer.toString();
     }
+
 }
