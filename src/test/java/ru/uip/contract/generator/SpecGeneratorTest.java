@@ -26,6 +26,11 @@ public class SpecGeneratorTest {
         operationContracts.put("Test", contractDescriptions);
 
         final Map<String, Set<String>> spec = generator.generateSpecs(operationContracts);
-        assertThat(String.join("", spec.get("Test")), equalTo("<h2>Its name</h2>\n<p>Its desc</p>"));
+        String expected = String.join("", spec.get("Test"));
+
+        final String separator = System.getProperty("line.separator");
+        expected = expected.replaceAll(separator, "");
+
+        assertThat(expected, equalTo("<h2>Its name</h2><p>Its desc</p>"));
     }
 }
