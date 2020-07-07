@@ -22,26 +22,23 @@ public class SpecGenerator {
     }
 
 
-    public Map<String, Set<String>> generateSpecs(Map<String, Set<ContractDescription>> operationContracts) {
+    public Map<String, String> generateSpecs(Map<String, Set<ContractDescription>> operationContracts) {
 
-        Map<String, Set<String>> operationDocs = new HashMap<>();
+        Map<String, String> operationDocs = new HashMap<>();
         for(Map.Entry<String, Set<ContractDescription>> operationContract: operationContracts.entrySet()) {
             final Set<ContractDescription> descriptions = operationContract.getValue();
             final String operationId = operationContract.getKey();
-
-            for(ContractDescription description: descriptions) {
-                final String contractDescription = generateContractDescription(description);
-                final Set<String> operationDescriptions = operationDocs.getOrDefault(operationId, new HashSet<>());
-                operationDescriptions.add(contractDescription);
-                operationDocs.put(operationId, operationDescriptions);
-            }
+            final String operationDescription = generateOperationDescription(descriptions);
+            operationDocs.put(operationId, operationDescription);
         }
         return operationDocs;
     }
 
-    public String generateContractDescription(ContractDescription description) {
+    public String generateOperationDescription(Set<ContractDescription> descriptions) {
         StringWriter writer = new StringWriter();
-        m.execute(writer, description);
+        Map<String, Object> context = new HashMap<>();
+        context.put("descriptions", descriptions);
+        m.execute(writer, context);
         return writer.toString();
     }
 
