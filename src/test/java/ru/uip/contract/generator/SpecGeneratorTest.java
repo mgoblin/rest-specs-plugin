@@ -29,6 +29,6 @@ public class SpecGeneratorTest {
         final String separator = System.getProperty("line.separator");
         final String expected = spec.get("Test").replaceAll(separator, "");
 
-        assertThat(expected, equalTo("== Its nameIts desc"));
+        assertThat(expected, equalTo("===== Its nameIts desc"));
     }
 }
