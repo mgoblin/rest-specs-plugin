@@ -39,6 +39,8 @@ public class PluginIntegrationTest {
         contracts.put("GetAccounts", files);
         extension.setOperationContracts(contracts);
 
+        extension.setOutputDir(project.getBuildDir() + "/generated-snippets/contract-description");
+
         task.getActions().get(0).execute(task);
         //TODO Validate result
     }

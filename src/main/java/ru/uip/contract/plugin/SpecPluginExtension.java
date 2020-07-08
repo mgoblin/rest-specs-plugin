@@ -1,10 +1,11 @@
 package ru.uip.contract.plugin;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.gradle.api.file.ConfigurableFileCollection;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -13,4 +14,5 @@ import java.util.Map;
 public class SpecPluginExtension {
     private String apiSpec = "src/main/api/api.yaml";
     private Map<String, ConfigurableFileCollection> operationContracts = new HashMap<>();
+    private String outputDir;
 }

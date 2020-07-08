@@ -6,6 +6,7 @@ import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
 import ru.uip.contract.generator.SpecGenerator;
+import ru.uip.contract.generator.SpecWriter;
 import ru.uip.contract.parser.ContractDescription;
 import ru.uip.contract.parser.ContractsParser;
 import ru.uip.openapi.OpenApiParser;
@@ -33,11 +34,14 @@ public class SpecPlugin implements Plugin<Project> {
         project.task(TASK_ID).doLast(task -> {
             final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec());
             final ContractsParser contractsParser = new ContractsParser(fromConfig(apiExt));
+
+            //TODO override mustache template name from project resources
             final SpecGenerator specGenerator = new SpecGenerator("spec.mustache");
+            final SpecWriter specWriter = new SpecWriter(apiExt.getOutputDir());
 
             final Map<String, Set<ContractDescription>> operationContracts = parseSpec(openApiParser, contractsParser);
-            System.out.println(specGenerator.generateSpecs(operationContracts));
-
+            final Map<String, String> contractSpecs = specGenerator.generateSpecs(operationContracts);
+            specWriter.write(contractSpecs);
         });
 
     }
