@@ -10,6 +10,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class ContractDescription {
+
+    private final static String NAME_PREFIX = "validate";
+    private final static String NAME_DELIMITER = "_";
+
+
     private final String name;
     private final String description;
 
@@ -19,5 +24,13 @@ public class ContractDescription {
             @JsonProperty("description") String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public String getSpecDirName() {
+        return String.format("%s%s%s", NAME_PREFIX, NAME_DELIMITER, generateName());
+    }
+
+    private String generateName() {
+       return name.toLowerCase().replaceAll("\\s+", NAME_DELIMITER);
     }
 }
