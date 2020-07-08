@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
-@ToString
 public class ContractDescription {
 
     private final static String NAME_PREFIX = "validate";
@@ -31,6 +29,9 @@ public class ContractDescription {
     }
 
     private String generateName() {
-       return name.toLowerCase().replaceAll("\\s+", NAME_DELIMITER);
+       return name.toLowerCase()
+               .replaceAll("\\s+", NAME_DELIMITER)
+               .replaceAll("[^a-zA-Z_$0-9]", "")
+               .replaceAll("_+", NAME_DELIMITER);
     }
 }
