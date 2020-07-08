@@ -23,6 +23,7 @@ public class SpecWriter {
             new File(outputDir).mkdirs();
             Path path = Paths.get(outputDir, spec.getKey() + ".adoc");
             try {
+                Files.deleteIfExists(path);
                 Files.write(path, spec.getValue().getBytes(UTF_8), CREATE_NEW);
             } catch (IOException e) {
                 throw new RuntimeException(e);
