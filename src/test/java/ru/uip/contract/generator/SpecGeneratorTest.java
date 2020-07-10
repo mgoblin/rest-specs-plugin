@@ -28,9 +28,9 @@ public class SpecGeneratorTest {
 
         final Map<String, String> spec = generator.generateSpecs(operationContracts);
         final String separator = System.getProperty("line.separator");
-        final String expected = spec.get("Test").replaceAll(separator, "");
+        final String expected = spec.get("Test").replaceAll(separator, " ");
 
-        assertThat(expected, equalTo("===== Its nameIts desc"));
+        assertThat(expected, equalTo(" ===== Its name  Its desc  validate_its_name  "));
     }
 
     @Test
@@ -45,9 +45,9 @@ public class SpecGeneratorTest {
 
         final Map<String, String> spec = generator.generateSpecs(operationContracts);
         final String separator = System.getProperty("line.separator");
-        final String expected = spec.get("Test").replaceAll(separator, "");
+        final String expected = spec.get("Test").replaceAll(separator, " ");
 
-        assertThat(expected, equalTo("===== Its nameIts desc"));
+        assertThat(expected, equalTo(" ===== Its name  Its desc  validate_its_name  "));
     }
 
     @Test

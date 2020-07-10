@@ -16,7 +16,7 @@ public class ContractDescriptionTest {
                 "Delete existing account balance with id = 1."
         );
 
-        assertThat(contractDescription.getSpecDirName(), equalTo("validate_should_delete_account_with_id_equals_to_1"));
+        assertThat(contractDescription.getSnippetName(), equalTo("validate_should_delete_account_with_id_equals_to_1"));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class ContractDescriptionTest {
                 "Delete existing account balance with id = 1."
         );
 
-        assertThat(contractDescription.getSpecDirName(), equalTo("validate_should_delete_account_with_id_equals_to_1"));
+        assertThat(contractDescription.getSnippetName(), equalTo("validate_should_delete_account_with_id_equals_to_1"));
     }
 
     @Test
@@ -36,6 +36,6 @@ public class ContractDescriptionTest {
                 "Delete existing account balance with id = 1."
         );
 
-        assertThat(contractDescription.getSpecDirName(), equalTo("validate_should_delete_account_with_id_equals_to_1"));
+        assertThat(contractDescription.getSnippetName(), equalTo("validate_should_delete_account_with_id_equals_to_1"));
     }
 }
