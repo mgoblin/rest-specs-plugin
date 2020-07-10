@@ -31,7 +31,7 @@ public class ContractDescription {
     private String snippetName() {
        return name.toLowerCase()
                .replaceAll("\\s+", NAME_DELIMITER)
-               .replaceAll("[^a-zA-Z_$0-9]", "")
+               .replaceAll("[^а-яА-Яa-zA-Z_$0-9]", "")
                .replaceAll("_+", NAME_DELIMITER);
     }
 }
