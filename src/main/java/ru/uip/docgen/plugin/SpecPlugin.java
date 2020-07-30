@@ -47,9 +47,9 @@ public class SpecPlugin implements Plugin<Project> {
             specWriter.write(contractSpecs);
         });
 
-        final Task task = project.task("contract-gen-spec").doLast(openAPIDocsAction);
-        task.setGroup("documentation");
-        task.setDescription("Generate REST service specification from open api spec and contract tests");
+        final Task task = project.task(OpenAPIDocsAction.TASK_ID).doLast(openAPIDocsAction);
+        task.setGroup(OpenAPIDocsAction.TASK_GROUP_ID);
+        task.setDescription(OpenAPIDocsAction.TASK_DESCR);
 
     }
 
