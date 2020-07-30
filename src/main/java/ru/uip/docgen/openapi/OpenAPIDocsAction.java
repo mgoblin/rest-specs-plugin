@@ -5,7 +5,6 @@ import org.gradle.api.Action;
 import org.gradle.api.NonNullApi;
 import org.gradle.api.Task;
 import org.gradle.api.logging.Logger;
-import ru.uip.docgen.openapi.generator.impl.AsciidocGenerator;
 import ru.uip.docgen.openapi.generator.spi.APISpecGenerator;
 import ru.uip.docgen.openapi.parser.OpenApiParser;
 import ru.uip.docgen.plugin.SpecPluginExtension;
@@ -34,9 +33,10 @@ public class OpenAPIDocsAction implements Action<Task> {
 
         final APISpecGenerator apiSpecGenerator = ServiceLoader.load(APISpecGenerator.class)
                 .stream()
-                .filter(it -> it.type().equals(AsciidocGenerator.class))
+                .filter(it -> it.type().getName().equals(apiExt.getGeneratorClass()))
                 .findFirst().orElseThrow().get();
 
-        logger.info(apiSpecGenerator.generateSpec());
+        logger.info("Find spec generator {}", apiSpecGenerator.getClass().getName());
     }
+
 }
