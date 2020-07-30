@@ -2,6 +2,7 @@ package ru.uip.contract.plugin;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
@@ -9,6 +10,7 @@ import ru.uip.contract.generator.SpecGenerator;
 import ru.uip.contract.generator.SpecWriter;
 import ru.uip.contract.parser.ContractDescription;
 import ru.uip.contract.parser.ContractsParser;
+import ru.uip.openapi.OpenAPIDocsAction;
 import ru.uip.openapi.OpenApiParser;
 
 import java.io.File;
@@ -27,6 +29,8 @@ public class SpecPlugin implements Plugin<Project> {
     public final static String TASK_ID = "generate-api-spec";
     public final static String EXTENSION_ID = "apiContractSpec";
 
+    private final OpenAPIDocsAction openAPIDocsAction = new OpenAPIDocsAction();
+
     @Override
     public void apply(Project project) {
         final SpecPluginExtension apiExt = project.getExtensions().create(EXTENSION_ID, SpecPluginExtension.class);
@@ -42,6 +46,10 @@ public class SpecPlugin implements Plugin<Project> {
             final Map<String, String> contractSpecs = specGenerator.generateSpecs(operationContracts);
             specWriter.write(contractSpecs);
         });
+
+        final Task task = project.task("contract-gen-spec").doLast(openAPIDocsAction);
+        task.setGroup("documentation");
+        task.setDescription("Generate REST service specification from open api spec and contract tests");
 
     }
 

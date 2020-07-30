@@ -3,12 +3,16 @@ package ru.uip.openapi;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.parser.OpenAPIV3Parser;
-import org.gradle.api.Project;
 
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Parse OpenAPI 3.x file
+ *
+ * Wrapper around io.swagger.v3.parser.OpenAPIV3Parser
+ */
 public class OpenApiParser {
 
     private final OpenAPI openAPI;
@@ -19,6 +23,10 @@ public class OpenApiParser {
             throw new IllegalArgumentException("OpenApi spec file " + fileName + " not found");
         }
         this.openAPI =  new OpenAPIV3Parser().read(fileName);
+    }
+
+    public OpenAPI getOpenAPI() {
+        return openAPI;
     }
 
     public List<String> parseOperationIds() {
