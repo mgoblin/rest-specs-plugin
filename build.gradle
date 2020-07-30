@@ -25,7 +25,7 @@ dependencies {
 gradlePlugin {
     plugins {
         simplePlugin {
-            id = 'ru.uip.docgen.contract.specs'
+            id = 'ru.uip.contract.specs'
             implementationClass = 'ru.uip.docgen.plugin.SpecPlugin'
         }
     }

@@ -9,7 +9,7 @@ import ru.uip.docgen.openapi.OpenAPIDocsAction;
 
 public class SpecPlugin implements Plugin<Project> {
 
-    public final static String PLUGIN_ID = "ru.uip.docgen.contract.specs";
+    public final static String PLUGIN_ID = "ru.uip.contract.specs";
     public final static String EXTENSION_ID = "apiContractSpec";
 
     private final OpenAPIDocsAction openAPIDocsAction = new OpenAPIDocsAction();
