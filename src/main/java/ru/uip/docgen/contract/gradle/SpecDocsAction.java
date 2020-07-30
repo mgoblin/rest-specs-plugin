@@ -9,14 +9,11 @@ import ru.uip.docgen.contract.generator.SpecGenerator;
 import ru.uip.docgen.contract.generator.SpecWriter;
 import ru.uip.docgen.contract.parser.ContractDescription;
 import ru.uip.docgen.contract.parser.ContractsParser;
-import ru.uip.docgen.openapi.OpenApiParser;
+import ru.uip.docgen.openapi.parser.OpenApiParser;
 import ru.uip.docgen.plugin.SpecPluginExtension;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @NonNullApi
@@ -30,7 +27,7 @@ public class SpecDocsAction implements Action<Task> {
     public void execute(Task task) {
         final Logger logger = task.getLogger();
         final SpecPluginExtension apiExt = task.getProject().getExtensions().findByType(SpecPluginExtension.class);
-        final OpenApiParser openApiParser = new OpenApiParser(apiExt.getApiSpec());
+        final OpenApiParser openApiParser = new OpenApiParser(Objects.requireNonNull(apiExt).getApiSpec());
         final ContractsParser contractsParser = new ContractsParser(fromConfig(apiExt));
 
         final SpecGenerator specGenerator = createSpecGenerator(apiExt);

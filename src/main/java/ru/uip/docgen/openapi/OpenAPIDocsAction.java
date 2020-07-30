@@ -1,8 +1,17 @@
 package ru.uip.docgen.openapi;
 
+import io.swagger.v3.oas.models.OpenAPI;
 import org.gradle.api.Action;
 import org.gradle.api.NonNullApi;
 import org.gradle.api.Task;
+import org.gradle.api.logging.Logger;
+import ru.uip.docgen.openapi.generator.impl.AsciidocGenerator;
+import ru.uip.docgen.openapi.generator.spi.APISpecGenerator;
+import ru.uip.docgen.openapi.parser.OpenApiParser;
+import ru.uip.docgen.plugin.SpecPluginExtension;
+
+import java.util.Objects;
+import java.util.ServiceLoader;
 
 @NonNullApi
 public class OpenAPIDocsAction implements Action<Task> {
@@ -13,6 +22,21 @@ public class OpenAPIDocsAction implements Action<Task> {
 
     @Override
     public void execute(Task task) {
-        System.out.println("OpenAPIDocsAction executed");
+        final Logger logger = task.getLogger();
+
+        final SpecPluginExtension apiExt = task.getProject().getExtensions().findByType(SpecPluginExtension.class);
+        final String apiSpec = Objects.requireNonNull(apiExt).getApiSpec();
+
+        final OpenApiParser openApiParser = new OpenApiParser(apiSpec);
+        final OpenAPI openAPI = openApiParser.getOpenAPI();
+
+        logger.info("Parse OpenAPI spec from {} to {}", apiSpec, openAPI);
+
+        final APISpecGenerator apiSpecGenerator = ServiceLoader.load(APISpecGenerator.class)
+                .stream()
+                .filter(it -> it.type().equals(AsciidocGenerator.class))
+                .findFirst().orElseThrow().get();
+
+        logger.info(apiSpecGenerator.generateSpec());
     }
 }

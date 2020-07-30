@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import ru.uip.docgen.contract.gradle.SpecDocsAction;
 import ru.uip.docgen.contract.parser.ContractDescription;
 import ru.uip.docgen.contract.parser.ContractsParser;
-import ru.uip.docgen.openapi.OpenApiParser;
+import ru.uip.docgen.openapi.parser.OpenApiParser;
 import ru.uip.docgen.plugin.SpecPlugin;
 import ru.uip.docgen.plugin.SpecPluginExtension;
 
