@@ -1,8 +1,8 @@
-package ru.uip.contract.generator;
+package ru.uip.docgen.contract.generator;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import ru.uip.contract.parser.ContractDescription;
+import ru.uip.docgen.contract.parser.ContractDescription;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package ru.uip.openapi;
+package ru.uip.docgen.openapi;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;

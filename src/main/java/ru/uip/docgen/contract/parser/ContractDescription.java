@@ -1,4 +1,4 @@
-package ru.uip.contract.parser;
+package ru.uip.docgen.contract.parser;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;

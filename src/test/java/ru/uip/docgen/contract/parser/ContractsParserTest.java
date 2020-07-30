@@ -1,4 +1,4 @@
-package ru.uip.contract.parser;
+package ru.uip.docgen.contract.parser;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;

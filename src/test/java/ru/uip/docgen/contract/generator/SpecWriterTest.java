@@ -1,4 +1,4 @@
-package ru.uip.contract.generator;
+package ru.uip.docgen.contract.generator;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ public class SpecWriterTest {
     }
 
     @Test
-    public void testWriteInvalidFile() throws IOException {
+    public void testWriteInvalidFile() {
         String outputDir = "build/testspec";
         SpecWriter writer = new SpecWriter(outputDir);
 

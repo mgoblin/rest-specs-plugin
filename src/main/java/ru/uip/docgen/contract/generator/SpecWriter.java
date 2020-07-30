@@ -1,4 +1,4 @@
-package ru.uip.contract.generator;
+package ru.uip.docgen.contract.generator;
 
 import java.io.File;
 import java.io.IOException;

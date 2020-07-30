@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-group 'ru.uip.contract'
+group 'ru.uip.docgen.contract'
 version '0.1'
 
 repositories {
@@ -25,8 +25,8 @@ dependencies {
 gradlePlugin {
     plugins {
         simplePlugin {
-            id = 'ru.uip.contract.specs'
-            implementationClass = 'ru.uip.contract.plugin.SpecPlugin'
+            id = 'ru.uip.docgen.contract.specs'
+            implementationClass = 'ru.uip.docgen.plugin.SpecPlugin'
         }
     }
 }

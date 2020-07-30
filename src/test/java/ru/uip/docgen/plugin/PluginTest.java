@@ -1,4 +1,4 @@
-package ru.uip.contract;
+package ru.uip.docgen.plugin;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
@@ -7,11 +7,9 @@ import org.gradle.testfixtures.ProjectBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import ru.uip.contract.parser.ContractDescription;
-import ru.uip.contract.parser.ContractsParser;
-import ru.uip.contract.plugin.SpecPlugin;
-import ru.uip.contract.plugin.SpecPluginExtension;
-import ru.uip.openapi.OpenApiParser;
+import ru.uip.docgen.contract.parser.ContractDescription;
+import ru.uip.docgen.contract.parser.ContractsParser;
+import ru.uip.docgen.openapi.OpenApiParser;
 
 import java.io.File;
 import java.util.*;
@@ -20,8 +18,8 @@ import java.util.stream.Collectors;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
-import static ru.uip.contract.plugin.SpecPlugin.PLUGIN_ID;
-import static ru.uip.contract.plugin.SpecPlugin.TASK_ID;
+import static ru.uip.docgen.plugin.SpecPlugin.PLUGIN_ID;
+import static ru.uip.docgen.plugin.SpecPlugin.TASK_ID;
 
 @Tag("unit")
 public class PluginTest {

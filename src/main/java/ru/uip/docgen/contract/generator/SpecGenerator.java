@@ -1,9 +1,9 @@
-package ru.uip.contract.generator;
+package ru.uip.docgen.contract.generator;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
-import ru.uip.contract.parser.ContractDescription;
+import ru.uip.docgen.contract.parser.ContractDescription;
 
 import java.io.BufferedReader;
 import java.io.IOException;

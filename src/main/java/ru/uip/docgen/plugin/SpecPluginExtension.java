@@ -1,4 +1,4 @@
-package ru.uip.contract.plugin;
+package ru.uip.docgen.plugin;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

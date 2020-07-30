@@ -1,4 +1,4 @@
-package ru.uip.contract.parser;
+package ru.uip.docgen.contract.parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;

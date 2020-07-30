@@ -1,4 +1,4 @@
-package ru.uip.openapi;
+package ru.uip.docgen.openapi;
 
 import org.gradle.api.Action;
 import org.gradle.api.NonNullApi;

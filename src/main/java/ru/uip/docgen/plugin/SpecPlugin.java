@@ -1,4 +1,4 @@
-package ru.uip.contract.plugin;
+package ru.uip.docgen.plugin;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
@@ -6,12 +6,12 @@ import org.gradle.api.Task;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
-import ru.uip.contract.generator.SpecGenerator;
-import ru.uip.contract.generator.SpecWriter;
-import ru.uip.contract.parser.ContractDescription;
-import ru.uip.contract.parser.ContractsParser;
-import ru.uip.openapi.OpenAPIDocsAction;
-import ru.uip.openapi.OpenApiParser;
+import ru.uip.docgen.contract.generator.SpecGenerator;
+import ru.uip.docgen.contract.generator.SpecWriter;
+import ru.uip.docgen.contract.parser.ContractDescription;
+import ru.uip.docgen.contract.parser.ContractsParser;
+import ru.uip.docgen.openapi.OpenAPIDocsAction;
+import ru.uip.docgen.openapi.OpenApiParser;
 
 import java.io.File;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class SpecPlugin implements Plugin<Project> {
 
     private final static Logger logger = Logging.getLogger(SpecPlugin.class);
 
-    public final static String PLUGIN_ID = "ru.uip.contract.specs";
+    public final static String PLUGIN_ID = "ru.uip.docgen.contract.specs";
     public final static String TASK_ID = "generate-api-spec";
     public final static String EXTENSION_ID = "apiContractSpec";
 
