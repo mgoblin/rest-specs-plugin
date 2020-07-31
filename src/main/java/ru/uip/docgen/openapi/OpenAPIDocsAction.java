@@ -9,6 +9,7 @@ import ru.uip.docgen.openapi.generator.spi.APISpecGenerator;
 import ru.uip.docgen.openapi.parser.OpenApiParser;
 import ru.uip.docgen.plugin.SpecPluginExtension;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,8 +47,18 @@ public class OpenAPIDocsAction implements Action<Task> {
         logger.info("Find spec generator {}", apiSpecGenerator.getClass().getName());
 
         final String specBody = apiSpecGenerator.generateSpec();
-        writeSpecToFile(apiExt.getOutputDir(), "testSpec.adoc", specBody);
+        final String specFileName = outputFileName(apiSpec);
+        logger.info("Output file is {}", specFileName);
+        writeSpecToFile(apiExt.getOutputDir(), specFileName, specBody);
 
+    }
+
+    public String outputFileName(String apiSpec) {
+        String s = apiSpec.replaceAll("[.][^.]+$", ".adoc");
+        final File file = new File(s);
+
+        return file.getAbsolutePath().substring(
+                file.getAbsolutePath().lastIndexOf(File.separator) + 1);
     }
 
     public void writeSpecToFile(String outputDir, String fileName, String specBody) {
