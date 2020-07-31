@@ -46,7 +46,7 @@ public class OpenAPIDocsAction implements Action<Task> {
 
         logger.info("Find spec generator {}", apiSpecGenerator.getClass().getName());
 
-        final String specBody = apiSpecGenerator.generateSpec();
+        final String specBody = apiSpecGenerator.generateSpec(openAPI);
         final String specFileName = outputFileName(apiSpec);
         logger.info("Output file is {}", specFileName);
         writeSpecToFile(apiExt.getOutputDir(), specFileName, specBody);
