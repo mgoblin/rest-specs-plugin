@@ -20,14 +20,14 @@ import java.util.Map;
 public class AsciidocGenerator implements APISpecGenerator {
 
     @Override
-    public String generateSpec(OpenAPI openAPI) {
+    public String generateSpec(OpenAPI openAPI, Map<String, Object> additionalAttributes) {
         try(StringWriter writer = new StringWriter();
             InputStream stream = this.getClass().getResourceAsStream("/index.mustache");
             InputStreamReader reader = new InputStreamReader(stream)) {
 
             final MustacheFactory mf = new DefaultMustacheFactory();
             final Mustache m = mf.compile(reader, "index.mustache");
-            m.execute(writer, createContext(openAPI));
+            m.execute(writer, createContext(openAPI, additionalAttributes));
 
             return writer.toString();
         } catch (IOException e) {
@@ -35,9 +35,17 @@ public class AsciidocGenerator implements APISpecGenerator {
         }
     }
 
-    public Map<String, Object> createContext(OpenAPI openAPI) {
-        Map<String, Object> context = new HashMap<>();
+    public Map<String, Object> createContext(OpenAPI openAPI, Map<String, Object> additionalAttributes) {
+        Map<String, Object> context = new HashMap<>(additionalAttributes);
         context.put("appName", openAPI.getInfo().getTitle());
+        context.put("headerAttributes", headerAttributes(openAPI));
         return context;
+    }
+
+    public Map<String, String> headerAttributes(OpenAPI openAPI) {
+        Map<String, String> attributes = new HashMap<>();
+        attributes.put("version", openAPI.getInfo().getVersion());
+        attributes.put("appName", openAPI.getInfo().getTitle());
+        return attributes;
     }
 }

@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ServiceLoader;
 
@@ -46,7 +48,10 @@ public class OpenAPIDocsAction implements Action<Task> {
 
         logger.info("Find spec generator {}", apiSpecGenerator.getClass().getName());
 
-        final String specBody = apiSpecGenerator.generateSpec(openAPI);
+        Map<String, Object> additionalAttributes = new HashMap<>();
+        additionalAttributes.put("snippetsDir", apiExt.getSnippetsDir());
+
+        final String specBody = apiSpecGenerator.generateSpec(openAPI, additionalAttributes);
         final String specFileName = outputFileName(apiSpec);
         logger.info("Output file is {}", specFileName);
         writeSpecToFile(apiExt.getOutputDir(), specFileName, specBody);
