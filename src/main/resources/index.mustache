@@ -13,34 +13,24 @@
 :app-name: {{appName}}
 {{/headerAttributes}}
 
+{{{description}}}
 == Методы API
 
 {{#apiInfo}}
-{{#apis}}
 {{#operations}}
 
+[.{{operation.operationId}}]
+=== {{operation.operationId}}
 
-{{#operation}}
-
-[.{{nickname}}]
-{{#useMethodAndPath}}
-=== {{httpMethod}} {{path}}
-
-Operation Id:: {{nickname}}
-
-{{/useMethodAndPath}}
-{{^useMethodAndPath}}
-=== {{nickname}}
+{{#operation.summary}}{{{operation.summary}}}{{/operation.summary}}
 
 `{{httpMethod}} {{path}}`
-{{/useMethodAndPath}}
-
 
 ==== Описание
 
-{{{summary}}}
+{{{operation.description}}}
 
-{{{notes}}}
+{{{operation.notes}}}
 
 {{#specinclude}}{{path}}/{{httpMethod}}/spec.adoc{{/specinclude}}
 
@@ -90,9 +80,7 @@ Operation Id:: {{nickname}}
 ==== Спецификация операции
 include::{{snippetsDir}}/{{nickname}}.adoc[]
 
-{{/operation}}
 {{/operations}}
-{{/apis}}
 {{/apiInfo}}
 
 {{> model}}

@@ -4,19 +4,19 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import io.swagger.v3.oas.models.OpenAPI;
-import lombok.Getter;
-import lombok.Setter;
+import io.swagger.v3.oas.models.Operation;
+import ru.uip.docgen.openapi.generator.model.OperationSpec;
 import ru.uip.docgen.openapi.generator.spi.APISpecGenerator;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-@Getter
-@Setter
 public class AsciidocGenerator implements APISpecGenerator {
 
     @Override
@@ -38,8 +38,28 @@ public class AsciidocGenerator implements APISpecGenerator {
     public Map<String, Object> createContext(OpenAPI openAPI, Map<String, Object> additionalAttributes) {
         Map<String, Object> context = new HashMap<>(additionalAttributes);
         context.put("appName", openAPI.getInfo().getTitle());
+        context.put("description", openAPI.getInfo().getDescription());
         context.put("headerAttributes", headerAttributes(openAPI));
+        context.put("apiInfo", apiInfo(openAPI));
         return context;
+    }
+
+    private Map<String, Object> apiInfo(OpenAPI openAPI) {
+        Map<String, Object> apiInfo = new HashMap<>();
+        List<OperationSpec> operations = new ArrayList<>();
+        for(String path: openAPI.getPaths().keySet()) {
+            final Operation deleteOperation = openAPI.getPaths().get(path).getDelete();
+            if(deleteOperation != null) {
+                final OperationSpec deleteSpec = new OperationSpec(
+                        deleteOperation,
+                        "DELETE",
+                        path);
+                operations.add(deleteSpec);
+                System.out.println(deleteOperation);
+            }
+        }
+        apiInfo.put("operations", operations);
+        return apiInfo;
     }
 
     public Map<String, String> headerAttributes(OpenAPI openAPI) {
