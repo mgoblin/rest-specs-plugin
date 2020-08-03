@@ -1,64 +1,9 @@
-{{#hasPathParams}}
-==== Параметр пути
-
-[cols="3"]
+[cols="4"]
 |===
-| Имя| Описание| Требуется
+| Имя| Описание| Обязательный | Вид
 
-{{#pathParams}}
+{{#operation.parameters}}
 {{>param}}
-{{/pathParams}}
+{{/operation.parameters}}
+
 |===
-{{/hasPathParams}}
-
-{{#hasBodyParam}}
-==== Тело параметра
-
-[cols="3"]
-|===
-| Имя| Описание| Требуется
-
-{{#bodyParams}}
-{{>param}}
-{{/bodyParams}}
-|===
-{{/hasBodyParam}}
-
-{{#hasFormParams}}
-===== Form Parameter
-
-[cols="2,3,1,1,1"]
-|===
-| Имя| Описание| Требуется| Default| Pattern
-
-{{#formParams}}
-{{>param}}
-{{/formParams}}
-|===
-{{/hasFormParams}}
-
-{{#hasHeaderParams}}
-====== Header Parameters
-
-[cols="2,3,1,1,1"]
-|===
-| Имя| Описание| Требуется| Default| Pattern
-
-{{#headerParams}}
-{{>param}}
-{{/headerParams}}
-|===
-{{/hasHeaderParams}}
-
-{{#hasQueryParams}}
-====== Query Parameters
-
-[cols="2,3,1,1,1"]
-|===
-| Имя| Описание| Требуется| Default| Pattern
-
-{{#queryParams}}
-{{>param}}
-{{/queryParams}}
-|===
-{{/hasQueryParams}}

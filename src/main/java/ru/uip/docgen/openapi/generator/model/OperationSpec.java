@@ -12,4 +12,9 @@ public class OperationSpec {
     private final Operation operation;
     private final String httpMethod;
     private final String path;
+
+    public boolean hasParams() {
+        return operation.getParameters().size() > 0;
+    }
+
 }
