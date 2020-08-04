@@ -51,44 +51,14 @@
 {{#operation.requestBody}}{{> rqbody}}{{/operation.requestBody}}
 {{/hasRequestBody}}
 
+{{#hasResponse}}
 ==== Возвращаемый ответ
-
-{{#hasReference}}
-{{^returnSimpleType}}{{returnContainer}}[{{/returnSimpleType}}<<{{returnBaseType}}>>{{^returnSimpleType}}]{{/returnSimpleType}}
-{{/hasReference}}
-
-{{^hasReference}}
-{{#returnType}}<<{{returnType}}>>{{/returnType}}
-{{^returnType}}Отсутствует{{/returnType}}
-{{/hasReference}}
-
-{{#hasProduces}}
-==== Тип содержимого
-
-{{#produces}}
-* {{{mediaType}}}
-{{/produces}}
-{{/hasProduces}}
-
-==== Ответы
-
-[%header,cols=3*]
-|===
-|Код ответа
-|Описание
-|Возвращаемый тип
-
 {{#responses}}
-|{{code}}
-|{{message}}
-|{{^simpleType}}
-{{#hasReference}}
-{{^returnSimpleType}}{{returnContainer}}[{{/returnSimpleType}}<<{{returnBaseType}}>>{{^returnSimpleType}}]{{/returnSimpleType}}
-{{/hasReference}}
-{{/simpleType}}
-{{#simpleType}}{{#dataType}}<<{{dataType}}>>{{/dataType}}{{^dataType}}Отсутствует{{/dataType}}{{/simpleType}}
+{{> response}}
+
 {{/responses}}
-|===
+{{/hasResponse}}
+
 
 ==== Спецификация операции
 include::{{snippetsDir}}/{{nickname}}.adoc[]

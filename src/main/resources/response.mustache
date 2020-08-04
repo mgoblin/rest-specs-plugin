@@ -1,0 +1,16 @@
+HTTP код: `{{httpCode}}` +
+{{description}} +
+{{^content}}Тело ответа отсутствует{{/content}}
+
+{{#content}}
+[cols="2"]
+|===
+| Формат| Тип
+
+{{#responseTypes}}
+| {{contentType}}
+| {{schemaDescription}}
+{{/responseTypes}}
+
+|===
+{{/content}}

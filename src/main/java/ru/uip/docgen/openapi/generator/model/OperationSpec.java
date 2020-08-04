@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class OperationSpec {
     private final Operation operation;
     private final String httpMethod;
     private final String path;
+    private List<ResponseSpec> responses;
 
     public boolean hasParams() {
         return operation.getParameters() != null && operation.getParameters().size() > 0;
@@ -28,4 +30,9 @@ public class OperationSpec {
     public Set<Map.Entry<String, MediaType>> requestContent() {
         return operation.getRequestBody().getContent().entrySet();
     }
+
+    public boolean hasResponse() {
+        return operation.getResponses() != null && operation.getResponses().size() > 0;
+    }
+
 }

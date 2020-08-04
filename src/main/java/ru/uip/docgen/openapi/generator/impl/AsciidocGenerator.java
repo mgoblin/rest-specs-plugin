@@ -6,6 +6,7 @@ import com.github.mustachejava.MustacheFactory;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import ru.uip.docgen.openapi.generator.model.OperationSpec;
+import ru.uip.docgen.openapi.generator.model.ResponseSpec;
 import ru.uip.docgen.openapi.generator.spi.APISpecGenerator;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AsciidocGenerator implements APISpecGenerator {
 
@@ -75,10 +77,17 @@ public class AsciidocGenerator implements APISpecGenerator {
             List<OperationSpec> operations) {
 
         if (operation != null) {
+            final List<ResponseSpec> responses = operation.getResponses().entrySet().stream()
+                    .map(e -> new ResponseSpec(
+                                e.getKey(),
+                                e.getValue().getDescription(),
+                                e.getValue().getContent()))
+                    .collect(Collectors.toList());
             final OperationSpec deleteSpec = new OperationSpec(
                     operation,
                     httpVerb,
-                    path);
+                    path,
+                    responses);
             operations.add(deleteSpec);
         }
     }
