@@ -22,15 +22,22 @@
 [.{{operation.operationId}}]
 === {{operation.operationId}}
 
-{{#operation.summary}}{{{operation.summary}}}{{/operation.summary}}
+{{#operation.summary}}
+==== Аннотация
+
+{{{operation.summary}}}
+{{/operation.summary}}
 
 `{{httpMethod}} {{path}}`
+
+
+{{#operation.description}}
 
 ==== Описание
 
 {{{operation.description}}}
 
-{{{operation.notes}}}
+{{/operation.description}}
 
 {{#hasParams}}
 ==== Параметры
@@ -38,7 +45,13 @@
 {{> params}}
 {{/hasParams}}
 
-==== Возвращаемый тип
+{{#hasRequestBody}}
+==== Тело запроса
+
+{{#operation.requestBody}}{{> rqbody}}{{/operation.requestBody}}
+{{/hasRequestBody}}
+
+==== Возвращаемый ответ
 
 {{#hasReference}}
 {{^returnSimpleType}}{{returnContainer}}[{{/returnSimpleType}}<<{{returnBaseType}}>>{{^returnSimpleType}}]{{/returnSimpleType}}

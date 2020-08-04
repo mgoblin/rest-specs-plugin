@@ -48,15 +48,14 @@ public class AsciidocGenerator implements APISpecGenerator {
         Map<String, Object> apiInfo = new HashMap<>();
         List<OperationSpec> operations = new ArrayList<>();
         for(String path: openAPI.getPaths().keySet()) {
-            final Operation deleteOperation = openAPI.getPaths().get(path).getDelete();
-            if(deleteOperation != null) {
-                final OperationSpec deleteSpec = new OperationSpec(
-                        deleteOperation,
-                        "DELETE",
-                        path);
-                operations.add(deleteSpec);
-                System.out.println(deleteOperation);
-            }
+            generateOperationSpec(openAPI.getPaths().get(path).getGet(),path,  "GET", operations);
+            generateOperationSpec(openAPI.getPaths().get(path).getPut(),path,  "PUT", operations);
+            generateOperationSpec(openAPI.getPaths().get(path).getPost(),path,  "POST", operations);
+            generateOperationSpec(openAPI.getPaths().get(path).getDelete(),path,  "DELETE", operations);
+            generateOperationSpec(openAPI.getPaths().get(path).getOptions(),path,  "OPTIONS", operations);
+            generateOperationSpec(openAPI.getPaths().get(path).getHead(),path,  "HEAD", operations);
+            generateOperationSpec(openAPI.getPaths().get(path).getPatch(),path,  "PATCH", operations);
+            generateOperationSpec(openAPI.getPaths().get(path).getTrace(),path,  "TRACE", operations);
         }
         apiInfo.put("operations", operations);
         return apiInfo;
@@ -67,5 +66,20 @@ public class AsciidocGenerator implements APISpecGenerator {
         attributes.put("version", openAPI.getInfo().getVersion());
         attributes.put("appName", openAPI.getInfo().getTitle());
         return attributes;
+    }
+
+    public void generateOperationSpec(
+            Operation operation,
+            String path,
+            String httpVerb,
+            List<OperationSpec> operations) {
+
+        if (operation != null) {
+            final OperationSpec deleteSpec = new OperationSpec(
+                    operation,
+                    httpVerb,
+                    path);
+            operations.add(deleteSpec);
+        }
     }
 }

@@ -14,7 +14,11 @@ public class OperationSpec {
     private final String path;
 
     public boolean hasParams() {
-        return operation.getParameters().size() > 0;
+        return operation.getParameters() != null && operation.getParameters().size() > 0;
+    }
+
+    public boolean hasRequestBody() {
+        return operation.getRequestBody() != null;
     }
 
 }
