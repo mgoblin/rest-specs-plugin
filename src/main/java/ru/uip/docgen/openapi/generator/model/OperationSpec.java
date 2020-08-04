@@ -1,9 +1,13 @@
 package ru.uip.docgen.openapi.generator.model;
 
 import io.swagger.v3.oas.models.Operation;
+import io.swagger.v3.oas.models.media.MediaType;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+
+import java.util.Map;
+import java.util.Set;
 
 @Getter
 @EqualsAndHashCode
@@ -21,4 +25,7 @@ public class OperationSpec {
         return operation.getRequestBody() != null;
     }
 
+    public Set<Map.Entry<String, MediaType>> requestContent() {
+        return operation.getRequestBody().getContent().entrySet();
+    }
 }

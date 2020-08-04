@@ -7,6 +7,15 @@
 
 |===
 
-----
-{{content}}
-----
+
+[cols="2"]
+|===
+| Формат| Тип
+
+{{#requestContent}}
+| {{{key}}}
+
+| {{{value.schema.$ref}}}
+{{/requestContent}}
+
+|===
